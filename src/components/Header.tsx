@@ -14,10 +14,10 @@ const Header: React.FC = () => {
   }, []);
 
   const navItems = [
-    { name: 'About', href: '#about', number: '01.' },
-    { name: 'Skills', href: '#skills', number: '02.' },
-    { name: 'Projects', href: '#projects', number: '03.' },
-    { name: 'Contact', href: '#contact', number: '04.' },
+    { name: '소개', href: '#about', number: '01.' },
+    { name: '기술', href: '#skills', number: '02.' },
+    { name: '프로젝트', href: '#projects', number: '03.' },
+    { name: '문의', href: '#contact', number: '04.' },
   ];
 
   return (

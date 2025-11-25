@@ -47,7 +47,7 @@ const Projects: React.FC = () => {
     <section id="projects" className="py-24 max-w-5xl mx-auto px-6 sm:px-10">
       <div className="flex items-center mb-12 animate-fade-in-up">
         <span className="text-green font-mono text-xl mr-2">03.</span>
-        <h2 className="text-3xl font-bold text-lightest-slate whitespace-nowrap">Some Things I've Built</h2>
+        <h2 className="text-3xl font-bold text-lightest-slate whitespace-nowrap">주요 프로젝트</h2>
         <div className="h-[1px] w-full bg-lightest-navy ml-6"></div>
       </div>
 
@@ -86,8 +86,8 @@ const Projects: React.FC = () => {
 
       {/* Other Projects - Grid */}
       <div className="text-center mb-10">
-        <h3 className="text-2xl font-bold text-lightest-slate mb-2">Other Noteworthy Projects</h3>
-        <a href="#" className="font-mono text-green text-sm hover:underline">view the archive</a>
+        <h3 className="text-2xl font-bold text-lightest-slate mb-2">기타 프로젝트</h3>
+        <a href="#" className="font-mono text-green text-sm hover:underline">아카이브 보기</a>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

@@ -28,7 +28,7 @@ const Skills: React.FC = () => {
     <section id="skills" className="py-24 max-w-4xl mx-auto px-6 sm:px-10">
       <div className="flex items-center mb-10 animate-fade-in-up">
         <span className="text-green font-mono text-xl mr-2">02.</span>
-        <h2 className="text-3xl font-bold text-lightest-slate whitespace-nowrap">Skills</h2>
+        <h2 className="text-3xl font-bold text-lightest-slate whitespace-nowrap">보유 기술</h2>
         <div className="h-[1px] w-full bg-lightest-navy ml-6"></div>
       </div>
 
