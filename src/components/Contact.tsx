@@ -11,12 +11,21 @@ const Contact: React.FC = () => {
         문의사항이 있거나 가볍게 인사하고 싶으시다면 언제든 연락 주세요!
       </p>
       
-      <a
-        href="mailto:example@email.com"
-        className="inline-block px-8 py-4 border border-green text-green font-mono rounded hover:bg-green/10 transition-colors mb-24"
-      >
-        메일 보내기
-      </a>
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-24">
+        <a
+          href="mailto:jaeyoun310@gmail.com"
+          className="inline-block px-8 py-4 border border-green text-green font-mono rounded hover:bg-green/10 transition-colors"
+        >
+          jaeyoun310@gmail.com
+        </a>
+        <a
+          href="/portfolio.pdf"
+          download="portfolio.pdf"
+          className="inline-block px-8 py-4 border border-green text-green font-mono rounded hover:bg-green/10 transition-colors"
+        >
+          포트폴리오 다운로드
+        </a>
+      </div>
 
       <footer className="flex flex-col items-center space-y-6">
         <div className="flex space-x-8 md:hidden">
@@ -56,8 +65,8 @@ const Contact: React.FC = () => {
 
       <div className="hidden md:block fixed bottom-0 right-10 z-10">
           <div className="flex flex-col items-center space-y-6 after:block after:w-[1px] after:h-24 after:bg-slate after:mx-auto after:mt-6">
-            <a href="mailto:example@email.com" className="text-slate hover:text-green hover:-translate-y-1 transition-all font-mono text-xs tracking-widest rotate-90 mb-24">
-                example@email.com
+            <a href="mailto:jaeyoun310@gmail.com" className="text-slate hover:text-green hover:-translate-y-1 transition-all font-mono text-xs tracking-widest rotate-90 mb-24">
+                jaeyoun310@gmail.com
             </a>
           </div>
       </div>
