@@ -1,7 +1,20 @@
-import React from 'react';
-import { ExternalLink, Folder, Github } from 'lucide-react';
+import React, { useState } from 'react';
+import { ExternalLink, Folder, Github, Users, Calendar, Server } from 'lucide-react';
 
-const featuredProjects = [
+interface Project {
+  title: string;
+  description: string;
+  tech: string[];
+  github: string;
+  external: string;
+  image?: string;
+  period: string;
+  team: string;
+  role: string;
+  architecture?: string;
+}
+
+const featuredProjects: Project[] = [
   {
     title: 'Finble',
     description:
@@ -10,6 +23,10 @@ const featuredProjects = [
     github: 'https://github.com/ashkite/Finble',
     external: '#',
     image: '/image/finble.png',
+    period: '2023.03 - 2023.06',
+    team: '4명 (BE 2, FE 2)',
+    role: 'Backend Developer',
+    architecture: 'Spring Boot 기반의 Monolithic 아키텍처로 설계됨. 외부 금융 API와 연동하여 데이터를 수집 및 가공하고, Spring Security(JWT)를 통한 인증/인가 시스템 구축. Redis를 도입하여 데이터 캐싱 처리로 응답 속도 최적화.',
   },
   {
     title: 'Pill-Pack',
@@ -19,10 +36,14 @@ const featuredProjects = [
     github: 'https://github.com/ashkite/Podo-News',
     external: '#',
     image: '/image/pill_pack.png',
+    period: '2023.08 - 2023.10',
+    team: '3명 (BE 1, FE 2)',
+    role: 'Backend Lead',
+    architecture: '사용자 및 약품 관리를 위한 서비스 중심 설계. 상호작용 분석 엔진을 통해 약물 간 충돌 위험을 감지하며, Firebase cloud Messaging(FCM)을 활용한 알림 서비스 구축. RESTful API 설계 및 JPA를 활용한 효율적인 데이터 모델링.',
   },
 ];
 
-const otherProjects = [
+const otherProjects: Project[] = [
   {
     title: 'Daily Friend (일상친구)',
     description:
@@ -30,6 +51,10 @@ const otherProjects = [
     tech: ['Spring Boot', 'React', 'MySQL'],
     github: 'https://github.com/ashkite/dailyfriend',
     external: '#',
+    period: '2022.12 - 2023.02',
+    team: '1명 (개인 프로젝트)',
+    role: 'Full Stack',
+    architecture: 'Controller-Service-Repository 레이어 패턴을 적용한 모듈형 구조. 일기, 금융, 일정 등 각 도메인을 독립적으로 관리 가능한 구조로 설계.',
   },
   {
     title: 'Chatbot Service',
@@ -37,6 +62,10 @@ const otherProjects = [
     tech: ['Python', 'LangChain', 'OpenAI API'],
     github: 'https://github.com/ashkite/Chatbot-Service',
     external: '#',
+    period: '2024.01 - 2024.02',
+    team: '2명 (AI 1, BE 1)',
+    role: 'AI Engineer',
+    architecture: 'FastAPI 서버와 LangChain을 활용한 RAG(Retrieval-Augmented Generation) 파이프라인 구축. Vector DB를 활용하여 문맥 기반의 정확한 답변 생성.',
   },
 ];
 
@@ -51,19 +80,19 @@ const Projects: React.FC = () => {
         <div className="h-[1px] w-full bg-lightest-navy ml-6" />
       </div>
 
-      <div className="space-y-24 mb-24">
+      <div className="space-y-32 mb-24">
         {featuredProjects.map((project, index) => (
           <div
             key={project.title}
-            className={`relative grid grid-cols-1 md:grid-cols-12 gap-6 items-center ${index % 2 !== 0 ? 'md:text-left' : 'md:text-right'}`}
+            className={`relative grid grid-cols-1 md:grid-cols-12 gap-6 items-start ${index % 2 !== 0 ? 'md:text-left' : 'md:text-right'}`}
           >
-            <div className={`col-span-12 md:col-span-6 ${index % 2 !== 0 ? 'md:col-start-7 order-last md:order-first' : ''}`}>
-              <div className="relative h-72 rounded-2xl overflow-hidden border border-lightest-navy/50 bg-light-navy/60 shadow-xl">
-                <div className="absolute inset-0 bg-gradient-to-tr from-navy/60 to-transparent" />
+            <div className={`col-span-12 md:col-span-6 sticky top-24 ${index % 2 !== 0 ? 'md:col-start-7 order-last md:order-first' : ''}`}>
+              <div className="relative h-80 rounded-2xl overflow-hidden border border-lightest-navy/50 bg-light-navy/60 shadow-xl group">
+                <div className="absolute inset-0 bg-gradient-to-tr from-navy/60 to-transparent z-10 transition-opacity duration-300 group-hover:opacity-0" />
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-contain p-4"
+                  className="w-full h-full object-cover p-0 transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
             </div>
@@ -71,17 +100,44 @@ const Projects: React.FC = () => {
             <div className={`col-span-12 md:col-span-6 z-10 ${index % 2 === 0 ? 'md:col-start-7' : ''}`}>
               <p className="font-mono text-green text-sm mb-2">Featured Project</p>
               <h3 className="text-2xl font-bold text-lightest-slate mb-4">{project.title}</h3>
-              <div className="bg-light-navy/70 text-slate p-6 rounded-xl text-sm leading-relaxed border border-lightest-navy/50 mb-5">
+
+              <div className={`bg-light-navy/90 text-slate p-6 rounded-xl text-sm leading-relaxed border border-lightest-navy/50 mb-5 shadow-lg backdrop-blur-sm ${index % 2 === 0 ? 'md:-ml-16' : 'md:-mr-16'}`}>
                 {project.description}
               </div>
-              <ul className="flex flex-wrap gap-3 text-slate font-mono text-xs mb-6">
+
+              <div className={`flex flex-col gap-3 mb-6 text-sm text-slate ${index % 2 === 0 ? 'items-end' : 'items-start'}`}>
+                <div className="flex items-center gap-2">
+                  <Calendar size={16} className="text-green" />
+                  <span>{project.period}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Users size={16} className="text-green" />
+                  <span>{project.team}</span>
+                  <span className="text-light-slate">|</span>
+                  <span className="font-semibold text-lightest-slate">{project.role}</span>
+                </div>
+              </div>
+
+              {project.architecture && (
+                <div className={`mb-6 p-4 rounded-lg bg-navy/40 border border-green/20 ${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
+                  <div className={`flex items-center gap-2 mb-2 text-green font-mono text-xs ${index % 2 === 0 ? 'justify-end' : 'justify-start'}`}>
+                    <Server size={14} />
+                    <span>System Architecture</span>
+                  </div>
+                  <p className="text-xs text-light-slate leading-relaxed">
+                    {project.architecture}
+                  </p>
+                </div>
+              )}
+
+              <ul className={`flex flex-wrap gap-3 text-slate font-mono text-xs mb-6 ${index % 2 === 0 ? 'justify-end' : 'justify-start'}`}>
                 {project.tech.map((tech) => (
-                  <li key={tech} className="px-3 py-1 rounded-full bg-navy/70 border border-lightest-navy/40">
+                  <li key={tech} className="px-3 py-1 rounded-full bg-navy/70 border border-lightest-navy/40 hover:text-green transition-colors cursor-default">
                     {tech}
                   </li>
                 ))}
               </ul>
-              <div className="flex items-center gap-4">
+              <div className={`flex items-center gap-4 ${index % 2 === 0 ? 'justify-end' : 'justify-start'}`}>
                 <a
                   href={project.github}
                   className="text-slate hover:text-green transition-colors"
@@ -106,18 +162,18 @@ const Projects: React.FC = () => {
 
       <div className="text-center mb-10">
         <h3 className="text-2xl font-bold text-lightest-slate mb-2">기타 프로젝트</h3>
-        <p className="font-mono text-green text-sm">아래 프로젝트들은 지속적으로 개선 중입니다.</p>
+        <p className="font-mono text-green text-sm">다양한 기술 스택을 활용한 실험적인 프로젝트들입니다.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {otherProjects.map((project, index) => (
           <div
             key={project.title}
-            className="bg-light-navy/70 border border-lightest-navy/50 p-7 rounded-2xl shadow-lg hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full"
+            className="bg-light-navy/70 border border-lightest-navy/50 p-7 rounded-2xl shadow-lg hover:-translate-y-2 transition-transform duration-300 flex flex-col h-full group"
             style={{ animationDelay: `${index * 60}ms` }}
           >
             <div className="flex justify-between items-center mb-6">
-              <Folder size={36} className="text-green" />
+              <Folder size={36} className="text-green group-hover:text-green/80 transition-colors" />
               <div className="flex space-x-4">
                 <a
                   href={project.github}
@@ -137,8 +193,34 @@ const Projects: React.FC = () => {
                 )}
               </div>
             </div>
-            <h3 className="text-xl font-bold text-lightest-slate mb-2">{project.title}</h3>
+
+            <h3 className="text-xl font-bold text-lightest-slate mb-2 group-hover:text-green transition-colors">{project.title}</h3>
+
+            <div className="flex flex-col gap-2 mb-4 text-xs text-light-slate font-mono">
+              <div className="flex items-center gap-2">
+                <Calendar size={12} />
+                <span>{project.period}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Users size={12} />
+                <span>{project.team} · {project.role}</span>
+              </div>
+            </div>
+
             <p className="text-slate text-sm flex-grow mb-6 leading-relaxed">{project.description}</p>
+
+            {project.architecture && (
+              <div className="mb-4 pt-4 border-t border-lightest-navy/30">
+                <div className="flex items-center gap-2 mb-1 text-green text-xs font-mono">
+                  <Server size={12} />
+                  <span>Architecture</span>
+                </div>
+                <p className="text-xs text-light-slate line-clamp-3 hover:line-clamp-none transition-all">
+                  {project.architecture}
+                </p>
+              </div>
+            )}
+
             <ul className="flex flex-wrap gap-2 text-slate font-mono text-xs mt-auto">
               {project.tech.map((tech) => (
                 <li key={tech} className="px-3 py-1 rounded-full bg-navy/70 border border-lightest-navy/40">
